@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
@@ -69,5 +71,12 @@ public class AuthorDaoIntegrationTest {
 
         Author deleted = authorDao.getById(saved.getId());
         assertThat(deleted).isNull();
+    }
+
+    @Test
+    void testListAuthorByLastNameLike(){
+        List<Author> authors = authorDao.listAuthorByLastNameLike("Walls");
+        assertThat(authors).isNotNull();
+        assertThat(authors.size()).isGreaterThan(0);
     }
 }
