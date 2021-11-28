@@ -34,8 +34,8 @@ public class AuthorDaoImpl implements AuthorDao {
     public Author findAuthorByName(String firstName, String lastName) {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<Author> query = em.createQuery(
-                    "SELECT a FROM Author a WHERE a.firstName = :first_name AND a.lastName = :last_name",
+            TypedQuery<Author> query = em.createNamedQuery(
+                    "find_by_name",
                     Author.class);
             query.setParameter("first_name", firstName);
             query.setParameter("last_name", lastName);
@@ -103,6 +103,17 @@ public class AuthorDaoImpl implements AuthorDao {
             TypedQuery<Author> query = em.createQuery("SELECT a FROM Author a WHERE a.lastName LIKE :last_name",
                     Author.class);
             query.setParameter("last_name", lastName + "%");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<Author> findAll() {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Author> query = em.createNamedQuery("author_find_all", Author.class);
             return query.getResultList();
         } finally {
             em.close();
