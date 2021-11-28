@@ -99,4 +99,10 @@ public class BookDaoIntegrationTest {
         Book book = bookDao.findBookByTitleNameCriteria("Domain-Driven Design");
         assertThat(book).isNotNull();
     }
+
+    @Test
+    void testGetBookByTitleNameNative() {
+        Book book = bookDao.findBookByTitleNameNative("Domain-Driven Design");
+        assertThat(book).isNotNull();
+    }
 }
