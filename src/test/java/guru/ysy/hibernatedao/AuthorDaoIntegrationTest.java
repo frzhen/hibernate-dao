@@ -16,7 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
  */
 @ActiveProfiles("local")
 @DataJpaTest
-@ComponentScan(basePackages = {"guru.ysy.jdbc.dao"})
+@ComponentScan(basePackages = {"guru.ysy.hibernatedao.dao"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AuthorDaoIntegrationTest {
     @Autowired
