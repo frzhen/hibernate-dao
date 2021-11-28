@@ -3,9 +3,7 @@ package guru.ysy.hibernatedao.dao;
 import guru.ysy.hibernatedao.domain.Author;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 
 /**

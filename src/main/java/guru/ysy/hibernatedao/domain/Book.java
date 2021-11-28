@@ -1,14 +1,15 @@
 package guru.ysy.hibernatedao.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * Created by zhenrui on 2021/11/28 11:49
  */
+@NamedQueries({
+        @NamedQuery(name = "find_all_books", query = "FROM Book" ),
+        @NamedQuery(name= "find_by_title", query = "FROM Book b WHERE b.title = :title")
+})
 @Entity
 public class Book {
     @Id

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * Created by zhenrui on 2021/11/28 16:58
@@ -34,9 +35,7 @@ public class BookDaoImpl implements BookDao {
     public Book findByBookByTitle(String title) {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<Book> query = em.createQuery(
-                    "SELECT b FROM Book b WHERE b.title = :title",
-                    Book.class);
+            TypedQuery<Book> query = em.createNamedQuery("find_by_title", Book.class);
             query.setParameter("title", title);
             return query.getSingleResult();
         } finally {
@@ -95,6 +94,18 @@ public class BookDaoImpl implements BookDao {
             em.remove(book);
             em.flush();
             em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+    }
+
+    @Override
+    public List<Book> findAll() {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Book> query = em.createNamedQuery("find_all_books", Book.class);
+            return query.getResultList();
         } finally {
             em.close();
         }
