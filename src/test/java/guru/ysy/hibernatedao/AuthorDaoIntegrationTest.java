@@ -95,4 +95,10 @@ public class AuthorDaoIntegrationTest {
         assertThat(author).isNotNull();
 
     }
+
+    @Test
+    void testGetAuthorByNameNative() {
+        Author author = authorDao.findAuthorByNameNative("Craig", "Walls");
+        assertThat(author).isNotNull();
+    }
 }
