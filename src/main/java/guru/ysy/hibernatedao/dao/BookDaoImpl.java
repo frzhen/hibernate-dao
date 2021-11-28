@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 /**
@@ -106,6 +107,31 @@ public class BookDaoImpl implements BookDao {
         try {
             TypedQuery<Book> query = em.createNamedQuery("find_all_books", Book.class);
             return query.getResultList();
+        } finally {
+            em.close();
+        }
+
+    }
+
+    @Override
+    public Book findBookByTitleNameCriteria(String title) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<Book> criteriaQuery = criteriaBuilder.createQuery(Book.class);
+
+            Root<Book> root = criteriaQuery.from(Book.class);
+
+            ParameterExpression<String> titleParam = criteriaBuilder.parameter(String.class);
+
+            Predicate titlePred = criteriaBuilder.equal(root.get("title"), titleParam);
+
+            criteriaQuery.select(root).where(criteriaBuilder.and(titlePred));
+
+            TypedQuery<Book> typedQuery = em.createQuery(criteriaQuery);
+            typedQuery.setParameter(titleParam, title);
+
+            return typedQuery.getSingleResult();
         } finally {
             em.close();
         }

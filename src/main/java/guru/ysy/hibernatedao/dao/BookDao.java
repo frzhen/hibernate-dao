@@ -21,4 +21,6 @@ public interface BookDao {
     void deleteBookById(Long id);
 
     List<Book> findAll();
+
+    Book findBookByTitleNameCriteria(String s);
 }

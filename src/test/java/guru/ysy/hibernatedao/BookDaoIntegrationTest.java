@@ -93,4 +93,10 @@ public class BookDaoIntegrationTest {
         assertThat(books).isNotNull();
         assertThat(books.size()).isGreaterThan(0);
     }
+
+    @Test
+    void testGetBookByTitleNameCriteria() {
+        Book book = bookDao.findBookByTitleNameCriteria("Domain-Driven Design");
+        assertThat(book).isNotNull();
+    }
 }
