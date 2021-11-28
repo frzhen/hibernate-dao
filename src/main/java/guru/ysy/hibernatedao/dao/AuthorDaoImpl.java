@@ -4,6 +4,7 @@ import guru.ysy.hibernatedao.domain.Author;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 /**
@@ -113,6 +114,34 @@ public class AuthorDaoImpl implements AuthorDao {
         try {
             TypedQuery<Author> query = em.createNamedQuery("author_find_all", Author.class);
             return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public Author findAuthorByNameCriteria(String firstName, String lastName) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<Author> cQuery = cBuilder.createQuery(Author.class);
+
+            Root<Author> root = cQuery.from(Author.class);
+
+            ParameterExpression<String> firstNameParam = cBuilder.parameter(String.class);
+            ParameterExpression<String> lastNameParam = cBuilder.parameter(String.class);
+
+            Predicate firstNamePred = cBuilder.equal(root.get("firstName"), firstNameParam);
+            Predicate lastNamePred = cBuilder.equal(root.get("lastName"), lastNameParam);
+
+            cQuery.select(root).where(cBuilder.and(
+                    firstNamePred,lastNamePred));
+
+            TypedQuery<Author> typedQuery = em.createQuery(cQuery);
+            typedQuery.setParameter(firstNameParam, firstName);
+            typedQuery.setParameter(lastNameParam, lastName);
+
+            return typedQuery.getSingleResult();
         } finally {
             em.close();
         }
