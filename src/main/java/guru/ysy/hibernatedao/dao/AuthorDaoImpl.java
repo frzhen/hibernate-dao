@@ -1,14 +1,24 @@
 package guru.ysy.hibernatedao.dao;
 
 import guru.ysy.hibernatedao.domain.Author;
+import guru.ysy.hibernatedao.repositories.AuthorRepository;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by zhenrui on 2021/11/28 11:52
  */
+@Component
 public class AuthorDaoImpl implements AuthorDao {
+
+    private final AuthorRepository authorRepository;
+
+    public AuthorDaoImpl(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
+
     @Override
     public Author getById(Long id) {
-        return null;
+        return authorRepository.getById(id);
     }
 
     @Override
@@ -18,7 +28,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author saveNewAuthor(Author author) {
-        return null;
+        return authorRepository.save(author);
     }
 
     @Override
@@ -28,6 +38,6 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public void deleteAuthorById(Long id) {
-
+        authorRepository.deleteById(id);
     }
 }

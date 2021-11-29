@@ -1,5 +1,6 @@
 package guru.ysy.hibernatedao.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -8,6 +9,7 @@ import java.util.Objects;
 /**
  * Created by zhenrui on 2021/11/28 11:49
  */
+@Entity
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

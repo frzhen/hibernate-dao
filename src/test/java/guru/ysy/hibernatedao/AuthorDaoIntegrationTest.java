@@ -7,16 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Created by zhenrui on 2021/11/28 11:57
  */
 @ActiveProfiles("local")
 @DataJpaTest
-@ComponentScan(basePackages = {"guru.ysy.jdbc.dao"})
+@ComponentScan(basePackages = {"guru.ysy.hibernatedao.dao"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AuthorDaoIntegrationTest {
     @Autowired
@@ -67,7 +69,8 @@ public class AuthorDaoIntegrationTest {
 
         authorDao.deleteAuthorById(saved.getId());
 
-        Author deleted = authorDao.getById(saved.getId());
-        assertThat(deleted).isNull();
+        assertThrows(JpaObjectRetrievalFailureException.class, () -> {
+            Author deleted = authorDao.getById(saved.getId());
+        });
     }
 }
