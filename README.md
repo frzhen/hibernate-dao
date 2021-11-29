@@ -1,7 +1,7 @@
 # Spring Data JPA - Hibernate DAO
 
 ## Branches:
-####Hibernate DAO:
+#### Hibernate DAO:
   * **main**: showcase regular implementation of Hibernate DAO
   * **Named_Queries**: showcase `@NamedQueries` and `@NamedQuery` for SQL templates that used for repeated query.
   * **Criteria_Query**: showcase flexibility of creating query that ceremonially showcase Spring JPA implementation.
