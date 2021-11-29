@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Created by zhenrui on 2021/11/28 11:50
  */
 public interface AuthorRepository extends JpaRepository<Author, Long> {
+
+    Author findAuthorByFirstNameAndLastName(String firstName, String lastName);
 }
