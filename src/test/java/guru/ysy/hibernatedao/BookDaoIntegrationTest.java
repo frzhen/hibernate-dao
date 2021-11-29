@@ -10,6 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.persistence.EntityNotFoundException;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -33,13 +35,13 @@ public class BookDaoIntegrationTest {
 
     @Test
     void testFindBookByTitle() {
-        Book book = bookDao.findByBookByTitle("Clean Code");
+        Book book = bookDao.findBookByTitle("Clean Code");
         assertThat(book).isNotNull();
     }
 
     @Test
     void testFindBookByIsbn() {
-        Book book = bookDao.findByIsbn("978-1617294945");
+        Book book = bookDao.findBookByIsbn("978-1617294945");
         assertThat(book).isNotNull();
     }
 
@@ -82,5 +84,17 @@ public class BookDaoIntegrationTest {
         bookDao.deleteBookById(saved.getId());
         assertThrows(JpaObjectRetrievalFailureException.class,
                 () -> bookDao.getById(saved.getId()));
+    }
+
+    @Test
+    void testGetBookByTitleNotFound() {
+        assertThrows(EntityNotFoundException.class,
+                () -> bookDao.findBookByTitle("foo"));
+    }
+
+    @Test
+    void testGetBookByIsbnNotFound() {
+        assertThrows(EntityNotFoundException.class,
+                () -> bookDao.findBookByIsbn("123"));
     }
 }

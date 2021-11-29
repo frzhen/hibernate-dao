@@ -10,9 +10,9 @@ public interface BookDao {
 
     Book getById(long id);
 
-    Book findByBookByTitle(String title);
+    Book findBookByTitle(String title);
 
-    Book findByIsbn(String isbn);
+    Book findBookByIsbn(String isbn);
 
     Book saveNewBook(Book book);
 

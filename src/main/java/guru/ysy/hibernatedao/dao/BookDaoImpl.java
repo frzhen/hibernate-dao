@@ -4,6 +4,7 @@ import guru.ysy.hibernatedao.domain.Book;
 import guru.ysy.hibernatedao.repositories.BookRepository;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 /**
@@ -25,13 +26,15 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Book findByBookByTitle(String title) {
-        return bookRepo.findBookByTitle(title);
+    public Book findBookByTitle(String title) {
+        return bookRepo.findBookByTitle(title)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public Book findByIsbn(String isbn) {
-        return bookRepo.findBookByIsbn(isbn);
+    public Book findBookByIsbn(String isbn) {
+        return bookRepo.findBookByIsbn(isbn)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
