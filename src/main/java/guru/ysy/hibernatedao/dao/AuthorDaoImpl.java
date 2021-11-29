@@ -4,6 +4,8 @@ import guru.ysy.hibernatedao.domain.Author;
 import guru.ysy.hibernatedao.repositories.AuthorRepository;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
+
 /**
  * Created by zhenrui on 2021/11/28 11:52
  */
@@ -31,9 +33,13 @@ public class AuthorDaoImpl implements AuthorDao {
         return authorRepository.save(author);
     }
 
+    @Transactional
     @Override
     public Author updateAuthor(Author author) {
-        return null;
+        Author foundAuthor = authorRepository.getById(author.getId());
+        foundAuthor.setFirstName(author.getFirstName());
+        foundAuthor.setLastName(author.getLastName());
+        return authorRepository.save(foundAuthor);
     }
 
     @Override
