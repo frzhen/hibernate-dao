@@ -1,8 +1,9 @@
 # Spring Data JPA - Hibernate DAO
 
-This repository contains source code examples to support my course Spring Data JPA and Hibernate Beginner to Guru
-
-You can access the API documentation [here](https://sfg-beer-works.github.io/brewery-api/#tag/Beer-Service)
+## Branches:
+* Named_Queries: showcase @NamedQueries and @NamedQuery for SQL templates that used for repeated query.
+* Criteria_Query: showcase flexibility of creating query that ceremonially showcase Spring JPA implementation.
+* Spring-Data-JPA-Queries: Showcase Spring Data JPA implementation of DAO
 
 ## Connect with Spring Framework Guru
 * Spring Framework Guru [Blog](https://springframework.guru/)
