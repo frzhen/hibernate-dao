@@ -71,15 +71,13 @@ public class AuthorDaoIntegrationTest {
 
         authorDao.deleteAuthorById(saved.getId());
 
-        assertThrows(JpaObjectRetrievalFailureException.class, () -> {
-            Author deleted = authorDao.getById(saved.getId());
-        });
+        assertThrows(JpaObjectRetrievalFailureException.class,
+                () -> authorDao.getById(saved.getId()));
     }
 
     @Test
     void testGetAuthorByNameNotFound() {
-        assertThrows(EntityNotFoundException.class, () -> {
-            Author author = authorDao.findAuthorByName("foo", "bar");
-        });
+        assertThrows(EntityNotFoundException.class,
+                () -> authorDao.findAuthorByName("foo", "bar"));
     }
 }
