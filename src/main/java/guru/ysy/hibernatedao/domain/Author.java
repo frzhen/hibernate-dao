@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * Created by zhenrui on 2021/11/28 11:47
@@ -16,6 +17,18 @@ public class Author {
 
     private String firstName;
     private String lastName;
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Author() {
+    }
 
     public Long getId() {
         return id;
